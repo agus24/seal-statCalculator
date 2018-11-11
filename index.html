@@ -18,6 +18,7 @@
         <div class="card bg-dark text-white">
             <div class="card-header">Seal Online Stat Calc</div>
             <div class="card-body">
+                Status : <span style="color:#fb6572" id="status">842</span>
                 <div class="form-group">
                     <label>Job</label>
                     <select class="form-control" id="job">
@@ -34,29 +35,29 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Str</label>
-                            <input type="number" class="form-control" id="str">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="str">
                         </div>
                         <div class="form-group">
                             <label>agi</label>
-                            <input type="number" class="form-control" id="agi">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="agi">
                         </div>
                         <div class="form-group">
                             <label>int</label>
-                            <input type="number" class="form-control" id="int">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="int">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>vit</label>
-                            <input type="number" class="form-control" id="vit">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="vit">
                         </div>
                         <div class="form-group">
                             <label>wis</label>
-                            <input type="number" class="form-control" id="wis">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="wis">
                         </div>
                         <div class="form-group">
                             <label>luk</label>
-                            <input type="number" class="form-control" id="luk">
+                            <input type="number" onkeyup="checkStat(this)" class="form-control" id="luk">
                         </div>
                     </div>
                 </div>
@@ -114,6 +115,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 function calculate() {
+    if($('#job').val() == "") {
+        alert('WOI GOBLOK LU PILIH DULU JOBNYA')
+    }
     let stat = {
         str : $('#str').val(),
         agi : $('#agi').val(),
@@ -197,7 +201,16 @@ function calculate() {
         $('#ap').text("+ "+Math.floor(stat.wis * 7));
         $('#eva').text("+ "+Math.floor(stat.luk * 1));
     }
+}
 
+function checkStat(el) {
+    let status = 842 - $('#str').val() - $('#agi').val() - $('#int').val() - $('#vit').val() - $('#wis').val() - $('#luk').val();
+    if(status < 0) {
+        alert('WOI BANGSAT INI MAX CUMA 842 DOANG')
+        $(el).val(0)
+    } else {
+        $('#status').text(status);
+    }
 }
 </script>
 </body>
